@@ -6,7 +6,7 @@ const options = {
         info: {
             title: 'BusDepot',
             description: 'Aplikacja zarządzająca zajezdnią autobusową. Centrum zarządzania (orkiestrator).',
-            version: '20200531',
+            version: '20200603',
             contact: {
                 name: 'Jakub Sońta',
                 url: 'https://github.com/jsonta'

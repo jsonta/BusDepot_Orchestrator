@@ -70,15 +70,15 @@ function columnsSetUp(name) {
     if (name == "brigades")
         return "id char(6) PRIMARY KEY NOT NULL, line int NOT NULL, in_service boolean NOT NULL";
     else if (name == "brigades_timetable")
-        return "id int PRIMARY KEY NOT NULL, brigade char(6) NOT NULL REFERENCES brigades (id), relation char(6) NOT NULL REFERENCES relations (id), remarks char(1) NOT NULL REFERENCES remarks (id), dep_time char(5) NOT NULL, arr_time char(5) NOT NULL";
+        return "id serial PRIMARY KEY NOT NULL, brigade char(6) NOT NULL REFERENCES brigades (id), relation char(6) NOT NULL REFERENCES relations (id), remarks char(1) NOT NULL REFERENCES remarks (id), dep_time char(5) NOT NULL, arr_time char(5) NOT NULL";
     else if (name == "buses")
-        return "id bigint PRIMARY KEY NOT NULL, fname text NOT NULL, lname text NOT NULL, bday_date text NOT NULL, phone bigint NOT NULL, email text, addr_strtname text NOT NULL, addr_bldgnmbr int NOT NULL, addr_apmtnmbr int, city text NOT NULL, zip text NOT NULL";
+        return "id int PRIMARY KEY NOT NULL, brand text NOT NULL, model text NOT NULL, axes int NOT NULL, vrn text NOT NULL, yr_prod int NOT NULL, yr_prch int NOT NULL, stand_plcs int NOT NULL, sit_plcs int NOT NULL, cpct_class text NOT NULL, emsn_norm text NOT NULL, in_service boolean NOT NULL";
     else if (name == "departures")
-        return `id serial PRIMARY KEY NOT NULL, "date" date NOT NULL, "time" time without time zone NOT NULL, brigade char(6) NOT NULL REFERENCES brigades (id), bus_id bigint NOT NULL REFERENCES buses (id), driver bigint NOT NULL REFERENCES drivers (id)`;
+        return `id serial PRIMARY KEY NOT NULL, "date" date NOT NULL, "time" time without time zone NOT NULL, brigade char(6) NOT NULL REFERENCES brigades (id), bus int NOT NULL REFERENCES buses (id), driver int NOT NULL REFERENCES drivers (id)`;
     else if (name == "drivers")
-        return "id bigint PRIMARY KEY NOT NULL, fname text NOT NULL, lname text NOT NULL, bday_date text NOT NULL, phone bigint NOT NULL, email text, addr_strtname text NOT NULL, addr_bldgnmbr int NOT NULL, addr_apmtnmbr int, city text NOT NULL, zip text NOT NULL";
+        return "id serial PRIMARY KEY NOT NULL, fname text NOT NULL, lname text NOT NULL, pesel text NOT NULL, bday_date char(10) NOT NULL, phone text NOT NULL, email text, street text NOT NULL, building int NOT NULL, apartment int, city text NOT NULL, zip text NOT NULL, in_service boolean NOT NULL";
     else if (name == "exits")
-        return `id serial PRIMARY KEY NOT NULL, "date" date NOT NULL, "time" time without time zone NOT NULL, brigade char(6) NOT NULL REFERENCES brigades (id), bus_id bigint NOT NULL REFERENCES buses (id), driver bigint NOT NULL REFERENCES drivers (id)`;
+        return `id serial PRIMARY KEY NOT NULL, "date" date NOT NULL, "time" time without time zone NOT NULL, brigade char(6) NOT NULL REFERENCES brigades (id), bus int NOT NULL REFERENCES buses (id), driver int NOT NULL REFERENCES drivers (id)`;
     else if (name == "lines")
         return "id int PRIMARY KEY NOT NULL, name text";
     else if (name == "relations")
@@ -88,11 +88,11 @@ function columnsSetUp(name) {
     else if (name == "terminus")
         return "id serial PRIMARY KEY NOT NULL, name text NOT NULL";
     else if (name == "vc_persons")
-        return "id bigint PRIMARY KEY NOT NULL, fname text NOT NULL, lname text NOT NULL, idcard text NOT NULL, phone text NOT NULL, email text, bday_date date NOT NULL, addr_strtname text NOT NULL, addr_bldgnmbr int NOT NULL, addr_apmtnmbr int, city text NOT NULL, zip text NOT NULL";
+        return "id serial PRIMARY KEY NOT NULL, fname text NOT NULL, lname text NOT NULL, pesel text NOT NULL, idcard text NOT NULL, bday_date date NOT NULL, phone text NOT NULL, email text, street text NOT NULL, building int NOT NULL, apartment int, city text NOT NULL, zip text NOT NULL";
     else if (name == "vc_results")
-        return "id serial PRIMARY KEY NOT NULL, car_id int NOT NULL REFERENCES vc_vehicles (id), cntl_date date NOT NULL, cntl_time time without time zone NOT NULL, brkds_front_test boolean NOT NULL, brkpd_front_test boolean NOT NULL, brkds_rear_test boolean NOT NULL, brkpd_rear_test boolean NOT NULL, brkdrum_test boolean NOT NULL";
+        return "id serial PRIMARY KEY NOT NULL, car int NOT NULL REFERENCES vc_vehicles (id), person int NOT NULL REFERENCES vc_persons (id), cntl_date date NOT NULL, cntl_time time without time zone NOT NULL, brkds_front_test boolean NOT NULL, brkpd_front_test boolean NOT NULL, brkds_rear_test boolean NOT NULL, brkpd_rear_test boolean NOT NULL, brkdrum_test boolean NOT NULL";
     else if (name == "vc_vehicles")
-        return "id serial PRIMARY KEY NOT NULL, brand text NOT NULL, model text NOT NULL, vrn text NOT NULL, person bigint NOT NULL REFERENCES vc_persons (id), vin text NOT NULL, yr_prod int NOT NULL, mileage bigint NOT NULL, eng_cpct integer NOT NULL, eng_type text NOT NULL";
+        return "id serial PRIMARY KEY NOT NULL, brand text NOT NULL, model text NOT NULL, vrn text NOT NULL, person int NOT NULL REFERENCES vc_persons (id), vin text NOT NULL, yr_prod int NOT NULL, mileage bigint NOT NULL, eng_cpct integer NOT NULL, eng_type text NOT NULL";
     else
         return "";
 }
